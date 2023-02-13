@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
-import { Searchbar } from './Searchbar/Searchbar';
-import { ImageGallery } from './ImageGallery/ImageGallery';
-import { searchImage } from 'services/imageApi';
-import { Modal } from './Modal/Modal';
-import { ImageDetails } from './ImageDetails/ImageDetails';
-import { Loader } from './Loader/Loader';
-import { Button } from './Button/Button';
+import Searchbar from './Searchbar/Searchbar';
+import ImageGallery from './ImageGallery/ImageGallery';
+import searchImage from 'shared/services/imageApi';
+import Modal from './Modal/Modal';
+import ImageDetails from './ImageDetails/ImageDetails';
+import Loader from './Loader/Loader';
+import Button from './Button/Button';
 
 export const App = () => {
   const [search, setSearch] = useState('');
@@ -34,28 +34,28 @@ export const App = () => {
     }
   }, [search, page, setLoading, setGallery, setError]);
 
-  const onSearch = ({ search }) => {
+  const onSearch = useCallback(({ search }) => {
     setSearch(search);
     setGallery([]);
     setPage(1);
-  };
+  }, []);
 
-  const showImage = ({ largeImageURL, tags }) => {
+  const showImage = useCallback(({ largeImageURL, tags }) => {
     setImageDetails({
       largeImageURL,
       tags,
     });
     setShowModal(true);
-  };
+  }, []);
 
-  const loadMore = () => {
+  const loadMore = useCallback(() => {
     setPage(prevPage => prevPage + 1);
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setShowModal(false);
     setImageDetails(null);
-  };
+  }, []);
 
   return (
     <div>

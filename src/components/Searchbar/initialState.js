@@ -1,3 +1,5 @@
-export const initialState = {
+const initialState = {
   search: '',
 };
+
+export default initialState;

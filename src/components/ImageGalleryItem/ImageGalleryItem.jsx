@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import css from './ImageGalleryItem.module.css';
 
-export const ImageGalleryItem = ({
+const ImageGalleryItem = ({
   src,
   largeImageURL,
   tags,
@@ -16,6 +16,8 @@ export const ImageGalleryItem = ({
     </li>
   );
 };
+
+export default ImageGalleryItem;
 
 ImageGalleryItem.propTypes = {
   src: PropTypes.string.isRequired,

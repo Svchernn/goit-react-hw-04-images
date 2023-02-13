@@ -1,17 +1,20 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 
 import css from './Modal.module.css';
 
 const modalRoot = document.querySelector('#modal-root');
 
-export const Modal = ({ close, children }) => {
-  const closeModal = ({ target, currentTarget, code }) => {
-    if (target === currentTarget || code === 'Escape') {
-      close();
-    }
-  };
+const Modal = ({ close, children }) => {
+  const closeModal = useCallback(
+    ({ target, currentTarget, code }) => {
+      if (target === currentTarget || code === 'Escape') {
+        close();
+      }
+    },
+    [close]
+  );
 
   useEffect(() => {
     document.addEventListener('keydown', closeModal);
@@ -28,6 +31,8 @@ export const Modal = ({ close, children }) => {
     modalRoot
   );
 };
+
+export default Modal;
 
 Modal.propTypes = {
   close: PropTypes.func.isRequired,
